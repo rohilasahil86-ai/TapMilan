@@ -306,7 +306,7 @@ if (returnTo) {
     placeholder={
       method === "email"
         ? "you@example.com"
-        : "+91 98765 43210"
+        : "+91 987xx xxx10"
     }
     value={method === "email" ? email : phone}
     onChange={(e) =>

@@ -234,7 +234,7 @@ function ForgotPassword() {
             to="/"
             className="text-3xl font-semibold tracking-tight text-[#171717]"
           >
-            Tap<span className="text-[#B08D57]">Setu</span>
+            Tap<span className="text-[#B08D57]">Milan</span>
           </Link>
 
           <p className="mt-3 text-[#6B665D]">
@@ -340,7 +340,7 @@ function ForgotPassword() {
                   type="tel"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  placeholder="9876543210"
+                  placeholder="+91 98xxxxxx10"
                   maxLength={10}
                   className="w-full px-4 py-3 rounded-xl border border-[#E5DED1] outline-none focus:border-[#B08D57]"
                 />

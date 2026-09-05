@@ -154,7 +154,7 @@ function UpdatePassword() {
             to="/"
             className="text-3xl font-semibold tracking-tight text-[#171717]"
           >
-            Tap<span className="text-[#B08D57]">Setu</span>
+            Tap<span className="text-[#B08D57]">Milan</span>
           </Link>
 
           <p className="mt-3 text-[#6B665D]">

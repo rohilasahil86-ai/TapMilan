@@ -530,7 +530,7 @@ function Signup() {
 
             <input
               type="text"
-              placeholder="Sahil Rohilla"
+              placeholder="Your Name"
               value={fullName}
               onChange={(e) =>
                 setFullName(e.target.value)
@@ -572,7 +572,7 @@ function Signup() {
 
             <input
               type="tel"
-              placeholder="+91 98765 43210"
+              placeholder="+91 98xxx xxx10"
               value={phone}
               onChange={(e) =>
                 setPhone(e.target.value)
@@ -622,7 +622,7 @@ function Signup() {
 
             <input
               type="text"
-              placeholder="sahil.rohilla"
+              placeholder="username05"
               value={username}
               onChange={(e) =>
                 setUsername(
