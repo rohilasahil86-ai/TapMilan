@@ -148,29 +148,42 @@ function PublicProfile() {
   };
 
   const formatPhone = (phone = "") => {
-    const digits = String(phone).replace(/\D/g, "").replace(/^91/, "");
+  const digits = String(phone).replace(/\D/g, "").replace(/^91/, "");
 
-    if (digits.length === 10) {
-      return `+91 ${digits.slice(0, 5)} ${digits.slice(5)}`;
-    }
+  if (digits.length === 10) {
+    return `+91 ${digits.slice(0, 5)} ${digits.slice(5)}`;
+  }
 
-    return phone;
-  };
+  return phone;
+};
 
-  const whatsappNumber = profile.whatsapp
-    ? String(profile.whatsapp).replace(/\D/g, "").replace(/^91/, "")
-    : "";
+const whatsappNumber = (() => {
+  const digits = String(profile.whatsapp || "").replace(/\D/g, "");
 
-  const emailComposeUrl = profile.email
-    ? `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(
-        profile.email
-      )}`
-    : "#";
+  if (digits.startsWith("91") && digits.length === 12) {
+    return digits;
+  }
 
+  if (digits.length === 10) {
+    return `91${digits}`;
+  }
 
-  // =========================
-  // SAVE CONTACT
-  // =========================
+  if (digits.length === 11 && digits.startsWith("0")) {
+    return `91${digits.slice(1)}`;
+  }
+
+  return digits;
+})();
+
+const emailComposeUrl = profile.email
+  ? `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(
+      profile.email
+    )}`
+  : "#";
+
+// =========================
+// SAVE CONTACT
+// =========================
 
   const saveContact = async () => {
     const escapeVCard = (value = "") => {
