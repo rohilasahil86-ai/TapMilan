@@ -21,9 +21,7 @@ function ActivateCard() {
 
       const cleanCardCode = cardCode.trim().toUpperCase();
 
-      
-
-      // Resolve card using SECURITY DEFINER RPC
+      // Resolve card first — no login required
       const { data, error } = await supabase.rpc("resolve_card", {
         p_card_code: cleanCardCode,
       });
@@ -37,44 +35,45 @@ function ActivateCard() {
 
       const card = data?.[0];
 
-// Card doesn't exist
-if (!card) {
-  setMessage("This card does not exist.");
-  setLoading(false);
-  return;
-}
+      // Card doesn't exist
+      if (!card) {
+        setMessage("This card does not exist.");
+        setLoading(false);
+        return;
+      }
 
-// Already activated → directly public profile
-if (card.username) {
-  navigate(`/u/${card.username}`, { replace: true });
-  return;
-}
+      // Already activated → directly open public profile
+      if (card.username) {
+        navigate(`/u/${card.username}`, { replace: true });
+        return;
+      }
 
-// Card exists but isn't available
-if (card.status !== "available") {
-  setMessage("This card is not available for activation.");
-  setLoading(false);
-  return;
-}
+      // Card exists but isn't available
+      if (card.status !== "available") {
+        setMessage("This card is not available for activation.");
+        setLoading(false);
+        return;
+      }
 
-// Card is available → check login
-const {
-  data: { session },
-} = await supabase.auth.getSession();
+      // Card is available → now check login
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
 
-if (!session) {
-  sessionStorage.setItem(
-    "tapmilan_return_to",
-    `/activate/${cleanCardCode}`
-  );
+      if (!session) {
+        sessionStorage.setItem(
+          "tapmilan_return_to",
+          `/activate/${cleanCardCode}`
+        );
 
-  navigate("/login", { replace: true });
-  return;
-}
+        navigate("/login", { replace: true });
+        return;
+      }
 
-// Logged-in owner can activate
-setCardAvailable(true);
-setLoading(false);
+      // Logged-in owner can activate
+      setCardAvailable(true);
+      setLoading(false);
+    }
 
     checkCard();
   }, [cardCode, navigate]);
@@ -102,18 +101,19 @@ setLoading(false);
 
     const username = data?.[0]?.username;
 
-if (username) {
-  navigate(`/u/${username}`, { replace: true });
-  return;
-}
+    // Profile already exists
+    if (username) {
+      navigate(`/u/${username}`, { replace: true });
+      return;
+    }
 
-// Card activated but profile does not exist yet
-sessionStorage.setItem(
-  "tapmilan_activated_card",
-  cleanCardCode
-);
+    // Card activated but profile does not exist yet
+    sessionStorage.setItem(
+      "tapmilan_activated_card",
+      cleanCardCode
+    );
 
-navigate("/profile-setup", { replace: true });
+    navigate("/profile-setup", { replace: true });
   };
 
   if (loading) {
