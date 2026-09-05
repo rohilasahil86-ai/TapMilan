@@ -21,20 +21,7 @@ function ActivateCard() {
 
       const cleanCardCode = cardCode.trim().toUpperCase();
 
-      // Check login session
-      const {
-        data: { session },
-      } = await supabase.auth.getSession();
-
-      if (!session) {
-  sessionStorage.setItem(
-    "tapmilan_return_to",
-    `/activate/${cleanCardCode}`
-  );
-
-  navigate("/login", { replace: true });
-  return;
-}
+      
 
       // Resolve card using SECURITY DEFINER RPC
       const { data, error } = await supabase.rpc("resolve_card", {
@@ -50,30 +37,44 @@ function ActivateCard() {
 
       const card = data?.[0];
 
-      // Card doesn't exist
-      if (!card) {
-        setMessage("This card does not exist.");
-        setLoading(false);
-        return;
-      }
+// Card doesn't exist
+if (!card) {
+  setMessage("This card does not exist.");
+  setLoading(false);
+  return;
+}
 
-      // Already activated
-      if (card.username) {
-        navigate(`/u/${card.username}`, { replace: true });
-        return;
-      }
+// Already activated → directly public profile
+if (card.username) {
+  navigate(`/u/${card.username}`, { replace: true });
+  return;
+}
 
-      // Card exists but isn't available
-      if (card.status !== "available") {
-        setMessage("This card is not available for activation.");
-        setLoading(false);
-        return;
-      }
+// Card exists but isn't available
+if (card.status !== "available") {
+  setMessage("This card is not available for activation.");
+  setLoading(false);
+  return;
+}
 
-      // Card is ready
-      setCardAvailable(true);
-      setLoading(false);
-    }
+// Card is available → check login
+const {
+  data: { session },
+} = await supabase.auth.getSession();
+
+if (!session) {
+  sessionStorage.setItem(
+    "tapmilan_return_to",
+    `/activate/${cleanCardCode}`
+  );
+
+  navigate("/login", { replace: true });
+  return;
+}
+
+// Logged-in owner can activate
+setCardAvailable(true);
+setLoading(false);
 
     checkCard();
   }, [cardCode, navigate]);

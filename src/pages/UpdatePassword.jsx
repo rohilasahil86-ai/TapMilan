@@ -8,6 +8,9 @@ function UpdatePassword() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+   const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [messageType, setMessageType] = useState("info");
@@ -179,40 +182,60 @@ function UpdatePassword() {
           >
 
             {/* PASSWORD */}
-            <div>
-              <label className="block text-sm font-medium text-[#171717] mb-2">
-                New Password
-              </label>
+<div>
+  <label className="block text-sm font-medium text-[#171717] mb-2">
+    New Password
+  </label>
 
-              <input
-                type="password"
-                value={password}
-                onChange={(e) =>
-                  setPassword(e.target.value)
-                }
-                placeholder="Enter new password"
-                autoComplete="new-password"
-                className="w-full px-4 py-3 rounded-xl border border-[#E5DED1] outline-none focus:border-[#B08D57]"
-              />
-            </div>
+  <div className="relative">
+    <input
+      type={showNewPassword ? "text" : "password"}
+      value={password}
+      onChange={(e) => setPassword(e.target.value)}
+      placeholder="Enter new password"
+      autoComplete="new-password"
+      className="w-full px-4 py-3 pr-12 rounded-xl border border-[#E5DED1] outline-none focus:border-[#B08D57]"
+    />
+
+    <button
+      type="button"
+      onClick={() => setShowNewPassword(!showNewPassword)}
+      className="absolute right-4 top-1/2 -translate-y-1/2 text-lg"
+    >
+      {showNewPassword ? "🙈" : "👁️"}
+    </button>
+  </div>
+</div>
 
             {/* CONFIRM */}
-            <div>
-              <label className="block text-sm font-medium text-[#171717] mb-2">
-                Confirm Password
-              </label>
+<div>
+  <label className="block text-sm font-medium text-[#171717] mb-2">
+    Confirm Password
+  </label>
 
-              <input
-                type="password"
-                value={confirmPassword}
-                onChange={(e) =>
-                  setConfirmPassword(e.target.value)
-                }
-                placeholder="Confirm new password"
-                autoComplete="new-password"
-                className="w-full px-4 py-3 rounded-xl border border-[#E5DED1] outline-none focus:border-[#B08D57]"
-              />
-            </div>
+  <div className="relative">
+    <input
+      type={showConfirmPassword ? "text" : "password"}
+      value={confirmPassword}
+      onChange={(e) =>
+        setConfirmPassword(e.target.value)
+      }
+      placeholder="Confirm new password"
+      autoComplete="new-password"
+      className="w-full px-4 py-3 pr-12 rounded-xl border border-[#E5DED1] outline-none focus:border-[#B08D57]"
+    />
+
+    <button
+      type="button"
+      onClick={() =>
+        setShowConfirmPassword(!showConfirmPassword)
+      }
+      className="absolute right-4 top-1/2 -translate-y-1/2 text-lg"
+    >
+      {showConfirmPassword ? "🙈" : "👁️"}
+    </button>
+  </div>
+</div>
 
             <button
               type="submit"
