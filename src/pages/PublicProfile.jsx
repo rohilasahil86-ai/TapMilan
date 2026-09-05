@@ -133,16 +133,46 @@ function PublicProfile() {
     return `https://${url}`;
   };
 
+  const normalizePhone = (phone = "") => {
+    const digits = String(phone).replace(/\D/g, "");
+
+    if (digits.startsWith("91") && digits.length === 12) {
+      return `+${digits}`;
+    }
+
+    if (digits.length === 10) {
+      return `+91${digits}`;
+    }
+
+    return "";
+  };
+
+  const formatPhone = (phone = "") => {
+    const digits = String(phone).replace(/\D/g, "").replace(/^91/, "");
+
+    if (digits.length === 10) {
+      return `+91 ${digits.slice(0, 5)} ${digits.slice(5)}`;
+    }
+
+    return phone;
+  };
+
   const whatsappNumber = profile.whatsapp
-    ? profile.whatsapp.replace(/\D/g, "")
+    ? String(profile.whatsapp).replace(/\D/g, "").replace(/^91/, "")
     : "";
+
+  const emailComposeUrl = profile.email
+    ? `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(
+        profile.email
+      )}`
+    : "#";
 
 
   // =========================
   // SAVE CONTACT
   // =========================
 
-  const saveContact = () => {
+  const saveContact = async () => {
     const escapeVCard = (value = "") => {
       return String(value)
         .replace(/\\/g, "\\\\")
@@ -154,7 +184,8 @@ function PublicProfile() {
     const fullName = escapeVCard(profile.full_name || "");
     const businessName = escapeVCard(profile.business_name || "");
     const designation = escapeVCard(profile.designation || "");
-    const phone = profile.phone || "";
+
+    const normalizedPhone = normalizePhone(profile.phone || "");
     const email = profile.email || "";
     const website = profile.website
       ? externalUrl(profile.website)
@@ -168,7 +199,7 @@ function PublicProfile() {
       `N:${fullName};;;;`,
       businessName ? `ORG:${businessName}` : "",
       designation ? `TITLE:${designation}` : "",
-      phone ? `TEL;TYPE=CELL:${phone}` : "",
+      normalizedPhone ? `TEL;TYPE=CELL:${normalizedPhone}` : "",
       email ? `EMAIL:${email}` : "",
       website ? `URL:${website}` : "",
       address ? `ADR;TYPE=WORK:;;${address};;;;` : "",
@@ -177,15 +208,39 @@ function PublicProfile() {
       .filter(Boolean)
       .join("\r\n");
 
-    const blob = new Blob([vCard], {
-      type: "text/vcard;charset=utf-8",
-    });
+    const file = new File(
+      [vCard],
+      `${profile.full_name || "contact"}.vcf`,
+      {
+        type: "text/vcard",
+      }
+    );
 
-    const url = URL.createObjectURL(blob);
+    // Mobile/tablet: use the native share sheet when supported.
+    if (
+      navigator.share &&
+      navigator.canShare &&
+      navigator.canShare({ files: [file] })
+    ) {
+      try {
+        await navigator.share({
+          title: `${profile.full_name || "Contact"} | TapMilan`,
+          files: [file],
+        });
+        return;
+      } catch (error) {
+        if (error?.name === "AbortError") {
+          return;
+        }
+      }
+    }
 
+    // Desktop / fallback: download a real vCard file.
+    const url = URL.createObjectURL(file);
     const link = document.createElement("a");
+
     link.href = url;
-    link.download = `${profile.full_name || "contact"}.vcf`;
+    link.download = file.name;
 
     document.body.appendChild(link);
     link.click();
@@ -300,21 +355,21 @@ function PublicProfile() {
 
                 {profile.phone && (
                   <a
-                    href={`tel:${profile.phone}`}
+                    href={`tel:${normalizePhone(profile.phone)}`}
                     className="rounded-full border border-[#171717] px-6 py-3.5 text-sm font-semibold transition hover:-translate-y-0.5 hover:bg-[#171717] hover:text-white"
                   >
                     Call
                   </a>
                 )}
 
-                {/* SAVE CONTACT */}
+                {/* ADD TO CONTACTS */}
 
                 <button
                   type="button"
                   onClick={saveContact}
                   className="rounded-full border border-[#B08D57] bg-white px-6 py-3.5 text-sm font-semibold text-[#171717] transition hover:-translate-y-0.5 hover:bg-[#B08D57] hover:text-white"
                 >
-                  Save Contact
+                  Add to Contacts
                 </button>
 
                 {/* DIRECTIONS */}
@@ -400,7 +455,7 @@ function PublicProfile() {
 
           {profile.phone && (
             <a
-              href={`tel:${profile.phone}`}
+              href={`tel:${normalizePhone(profile.phone)}`}
               className="border-b border-[#E5DED1] px-6 py-7 transition hover:bg-[#F5F2EA] lg:border-b-0 lg:border-r"
             >
               <p className="text-xs uppercase tracking-[0.2em] text-[#B08D57]">
@@ -410,13 +465,19 @@ function PublicProfile() {
               <p className="mt-2 font-semibold">
                 Call
               </p>
+
+              <p className="mt-1 text-sm text-[#6B665D]">
+                {formatPhone(profile.phone)}
+              </p>
             </a>
           )}
 
 
           {profile.email && (
             <a
-              href={`mailto:${profile.email}`}
+              href={emailComposeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
               className="border-b border-[#E5DED1] px-6 py-7 transition hover:bg-[#F5F2EA] lg:border-b-0 lg:border-r"
             >
               <p className="text-xs uppercase tracking-[0.2em] text-[#B08D57]">
@@ -425,6 +486,10 @@ function PublicProfile() {
 
               <p className="mt-2 font-semibold">
                 Send Email
+              </p>
+
+              <p className="mt-1 truncate text-sm text-[#6B665D]">
+                {profile.email}
               </p>
             </a>
           )}
@@ -689,7 +754,7 @@ function PublicProfile() {
           onClick={saveContact}
           className="mt-7 rounded-full bg-[#B08D57] px-7 py-3.5 text-sm font-semibold text-white transition hover:bg-[#9C7B4A]"
         >
-          Save Contact
+          Add to Contacts
         </button>
 
       </section>
