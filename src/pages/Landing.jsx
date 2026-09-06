@@ -9,21 +9,36 @@ import Pricing from "../components/landing/Pricing";
 import FAQ from "../components/landing/FAQ";
 import FinalCTA from "../components/landing/FinalCTA";
 import Footer from "../components/landing/Footer";
+import SEO from "../components/SEO";
 
 export default function Landing() {
   return (
-    <div className="min-h-screen bg-[#F5F2EA] text-[#171717]">
-      <Navbar />
-      <Hero />
-      <WhyTapMilan />
-      <Features />
-      <HowItWorks />
-      <ProductShowcase />
-      <WhoIsItFor />
-      <Pricing />
-      <FAQ />
-      <FinalCTA />
-      <Footer />
-    </div>
+    <>
+      <SEO />
+
+      <div className="min-h-screen bg-[#F5F2EA] text-[#171717]">
+        <Navbar />
+
+        <Hero />
+
+        <WhyTapMilan />
+
+        <Features />
+
+        <HowItWorks />
+
+        <ProductShowcase />
+
+        <WhoIsItFor />
+
+        <Pricing />
+
+        <FAQ />
+
+        <FinalCTA />
+
+        <Footer />
+      </div>
+    </>
   );
 }
