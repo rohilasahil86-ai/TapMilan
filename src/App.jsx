@@ -12,9 +12,15 @@ import ForgotPassword from "./pages/ForgotPassword";
 import UpdatePassword from "./pages/UpdatePassword";
 import ActivateCard from "./pages/ActivateCard";
 
+import ScrollToTop from "./components/ScrollToTop";
+
 function App() {
   return (
     <BrowserRouter>
+
+      {/* Every new route starts from the top */}
+      <ScrollToTop />
+
       <Routes>
 
         <Route path="/" element={<Landing />} />
@@ -29,17 +35,27 @@ function App() {
 
         <Route path="/profile-setup" element={<ProfileSetup />} />
 
-        <Route path="/activate/:cardCode" element={<ActivateCard />}/>
+        <Route
+          path="/activate/:cardCode"
+          element={<ActivateCard />}
+        />
 
-        <Route path="/u/:username" element={<PublicProfile />} />
+        <Route
+          path="/u/:username"
+          element={<PublicProfile />}
+        />
 
         <Route path="/dashboard" element={<Dashboard />} />
 
         <Route path="/edit-profile" element={<EditProfile />} />
 
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route
+          path="*"
+          element={<Navigate to="/" replace />}
+        />
 
       </Routes>
+
     </BrowserRouter>
   );
 }
