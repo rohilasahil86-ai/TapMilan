@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "../lib/supabase";
+import SEO from "../components/SEO";
 
 function UpdatePassword() {
   const navigate = useNavigate();
@@ -148,6 +149,13 @@ function UpdatePassword() {
   };
 
   return (
+    <>
+    <SEO
+      title="Update Password | TapMilan"
+      description="Update your TapMilan account password."
+      noIndex={true}
+    />
+
     <div className="min-h-screen bg-[#F5F2EA] flex items-center justify-center px-6 py-12">
       <div className="w-full max-w-md">
 
@@ -276,6 +284,7 @@ function UpdatePassword() {
         </div>
       </div>
     </div>
+    </>
   );
 }
 

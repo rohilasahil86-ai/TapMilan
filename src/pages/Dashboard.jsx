@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "../lib/supabase";
 import { QRCodeCanvas } from "qrcode.react";
+import SEO from "../components/SEO";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -178,6 +179,13 @@ const cardActivationUrl = card?.card_code
   }
 
   return (
+    <>
+    <SEO
+      title="Dashboard | TapMilan"
+      description="Manage your TapMilan digital business card."
+      noIndex={true}
+    />
+
     <div className="min-h-screen bg-[#F5F2EA]">
 
       {/* Header */}
@@ -608,6 +616,7 @@ const cardActivationUrl = card?.card_code
       </footer>
 
     </div>
+    </>
   );
 }
 

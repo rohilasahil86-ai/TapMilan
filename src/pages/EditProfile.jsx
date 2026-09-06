@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../lib/supabase";
+import SEO from "../components/SEO";
 
 function EditProfile() {
   const navigate = useNavigate();
@@ -380,6 +381,13 @@ const handlePhotoUpload = async (e) => {
   // =========================
 
   return (
+    <>
+    <SEO
+      title="Edit Profile | TapMilan"
+      description="Edit your TapMilan digital business card profile."
+      noIndex={true}
+    />
+
     <div className="min-h-screen bg-[#F5F2EA] text-[#171717]">
 
       {/* HEADER */}
@@ -755,6 +763,7 @@ const handlePhotoUpload = async (e) => {
 
       </main>
     </div>
+    </>
   );
 }
 

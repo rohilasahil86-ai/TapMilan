@@ -14,28 +14,33 @@ import SEO from "../components/SEO";
 export default function Landing() {
   return (
     <>
-      <SEO />
+      <SEO
+        title="TapMilan | Digital Business Card, Visiting Card & NFC Card India"
+        description="TapMilan helps professionals and businesses create digital business cards, smart visiting cards and NFC cards. Share your profile, WhatsApp, phone, social links and business details instantly."
+      />
 
       <div className="min-h-screen bg-[#F5F2EA] text-[#171717]">
         <Navbar />
 
-        <Hero />
+        <main>
+          <Hero />
 
-        <WhyTapMilan />
+          <WhyTapMilan />
 
-        <Features />
+          <Features />
 
-        <HowItWorks />
+          <HowItWorks />
 
-        <ProductShowcase />
+          <ProductShowcase />
 
-        <WhoIsItFor />
+          <WhoIsItFor />
 
-        <Pricing />
+          <Pricing />
 
-        <FAQ />
+          <FAQ />
 
-        <FinalCTA />
+          <FinalCTA />
+        </main>
 
         <Footer />
       </div>

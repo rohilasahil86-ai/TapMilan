@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "../lib/supabase";
+import SEO from "../components/SEO";
 
 function Login() {
   const navigate = useNavigate();
@@ -102,6 +103,17 @@ if (returnTo) {
 };
 
   return (
+    <>
+      {/* =========================
+          SEO — LOGIN PAGE
+          Do NOT index this page
+      ========================== */}
+      <SEO
+        title="Login | TapMilan"
+        description="Login to your TapMilan account and manage your digital business card."
+        noIndex={true}
+      />
+
     <div className="min-h-screen bg-[#F5F2EA]">
 
       {/* TOP BRAND */}
@@ -450,6 +462,7 @@ if (returnTo) {
 
       </div>
     </div>
+    </>
   );
 }
 

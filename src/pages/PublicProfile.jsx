@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { supabase } from "../lib/supabase";
+import SEO from "../components/SEO";
 
 function PublicProfile() {
   const { username } = useParams();
@@ -267,6 +268,16 @@ const emailComposeUrl = profile.email
   // =========================
 
   return (
+    <>
+    <SEO
+  title={`${profile.full_name} | ${profile.business_name || "TapMilan Digital Business Card"}`}
+  description={
+    profile.bio
+      ? profile.bio.slice(0, 155)
+      : `${profile.full_name} - ${profile.designation || "Professional"} | TapMilan Digital Business Card`
+  }
+/>
+
     <main className="min-h-screen bg-[#F5F2EA] text-[#171717]">
 
       {/* =====================================
@@ -798,6 +809,7 @@ const emailComposeUrl = profile.email
       </footer>
 
     </main>
+    </>
   );
 }
 

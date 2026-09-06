@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
+import SEO from "../components/SEO";
 
 function Signup() {
   const [method, setMethod] = useState("email");
@@ -460,6 +461,12 @@ function Signup() {
   // UI
   // =========================
   return (
+    <>
+    <SEO
+  title="Sign Up | TapMilan"
+  description="Create your TapMilan account."
+  noIndex={true}
+/>
     <main className="flex min-h-screen items-center justify-center bg-[#F5F2EA] px-4 py-10">
       <div className="w-full max-w-md rounded-3xl border border-[#E5DED1] bg-white p-8 shadow-xl">
 
@@ -763,6 +770,7 @@ function Signup() {
 
       </div>
     </main>
+    </>
   );
 }
 

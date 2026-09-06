@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { supabase } from "../lib/supabase";
+import SEO from "../components/SEO";
 
 function ActivateCard() {
   const { cardCode } = useParams();
@@ -131,6 +132,14 @@ function ActivateCard() {
   }
 
   return (
+
+     <>
+    <SEO
+      title="Activate Card | TapMilan"
+      description="Activate your TapMilan digital business card."
+      noIndex={true}
+    />
+
     <div className="flex min-h-screen items-center justify-center bg-[#F5F2EA] px-6 text-[#171717]">
       <div className="w-full max-w-md text-center">
 
@@ -196,6 +205,7 @@ function ActivateCard() {
 
       </div>
     </div>
+    </>
   );
 }
 

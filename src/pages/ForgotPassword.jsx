@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { supabase } from "../lib/supabase";
+import SEO from "../components/SEO";
 
 function ForgotPassword() {
   const [method, setMethod] = useState("email");
@@ -224,6 +225,13 @@ function ForgotPassword() {
   };
 
   return (
+    <>
+    <SEO
+      title="Forgot Password | TapMilan"
+      description="Reset your TapMilan account password."
+      noIndex={true}
+    />
+
     <div className="min-h-screen bg-[#F5F2EA] flex items-center justify-center px-6 py-12">
 
       <div className="w-full max-w-md">
@@ -420,6 +428,7 @@ function ForgotPassword() {
         </div>
       </div>
     </div>
+    </>
   );
 }
 

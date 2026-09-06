@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
 import { useNavigate } from "react-router-dom";
+import SEO from "../components/SEO";
 
 function ProfileSetup() {
   const navigate = useNavigate();
@@ -476,6 +477,13 @@ function ProfileSetup() {
   // UI
   // =========================
   return (
+    <>
+    <SEO
+      title="Profile | TapMilan"
+      description="Manage your TapMilan profile."
+      noIndex={true}
+    />
+
     <div className="min-h-screen bg-[#F5F2EA] text-[#171717]">
 
       {/* HEADER */}
@@ -849,6 +857,7 @@ function ProfileSetup() {
         </div>
       )}
     </div>
+    </>
   );
 }
 
@@ -885,6 +894,7 @@ function Input({
         className="w-full rounded-xl border border-[#E5DED1] bg-white px-4 py-3 text-sm outline-none transition placeholder:text-[#9A948A] focus:border-[#B08D57]"
       />
     </div>
+    
   );
 }
 
