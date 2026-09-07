@@ -1,10 +1,9 @@
 import { useEffect } from "react";
 
 export default function SEO({
-  title = "TapMilan | Digital Business Card, Visiting Card & NFC Card India",
-
-  description = "TapMilan helps professionals and businesses create digital business cards, smart visiting cards and NFC cards. Share your profile, WhatsApp, phone, social links and business details instantly.",
-
+  title = "TapMilan | Digital Business Card",
+  description = "Create and share your professional digital business card with TapMilan.",
+  path = "/",
   noIndex = false,
 }) {
   useEffect(() => {
@@ -52,8 +51,10 @@ export default function SEO({
     );
 
     // ==============================
-    // CANONICAL
+    // CANONICAL URL
     // ==============================
+
+    const canonicalUrl = `https://tapmilan.in${path}`;
 
     let canonicalTag = document.querySelector(
       'link[rel="canonical"]'
@@ -67,7 +68,7 @@ export default function SEO({
 
     canonicalTag.setAttribute(
       "href",
-      "https://tapmilan.in/"
+      canonicalUrl
     );
 
     // ==============================
@@ -88,10 +89,7 @@ export default function SEO({
       tag.setAttribute("content", content);
     };
 
-    setMetaProperty(
-      "og:title",
-      title
-    );
+    setMetaProperty("og:title", title);
 
     setMetaProperty(
       "og:description",
@@ -100,7 +98,7 @@ export default function SEO({
 
     setMetaProperty(
       "og:url",
-      "https://tapmilan.in/"
+      canonicalUrl
     );
 
     setMetaProperty(
@@ -111,6 +109,11 @@ export default function SEO({
     setMetaProperty(
       "og:site_name",
       "TapMilan"
+    );
+
+    setMetaProperty(
+      "og:locale",
+      "en_IN"
     );
 
     // ==============================
@@ -128,12 +131,15 @@ export default function SEO({
         document.head.appendChild(tag);
       }
 
-      tag.setAttribute("content", content);
+      tag.setAttribute(
+        "content",
+        content
+      );
     };
 
     setMetaName(
       "twitter:card",
-      "summary"
+      "summary_large_image"
     );
 
     setMetaName(
@@ -156,33 +162,44 @@ export default function SEO({
 
     if (!schemaTag) {
       schemaTag = document.createElement("script");
-      schemaTag.type = "application/ld+json";
+
+      schemaTag.type =
+        "application/ld+json";
+
       schemaTag.setAttribute(
         "data-seo-schema",
         "tapmilan"
       );
 
-      document.head.appendChild(schemaTag);
+      document.head.appendChild(
+        schemaTag
+      );
     }
 
-    schemaTag.textContent = JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      name: "TapMilan",
-      url: "https://tapmilan.in/",
-      description:
-        "Digital business cards, smart visiting cards and NFC cards for professionals and businesses.",
-    });
+    schemaTag.textContent =
+      JSON.stringify({
+        "@context":
+          "https://schema.org",
 
-    // ==============================
-    // CLEANUP
-    // ==============================
+        "@type": "Organization",
 
-    return () => {
-      // No cleanup required because
-      // the next page will update these tags.
-    };
-  }, [title, description, noIndex]);
+        name: "TapMilan",
+
+        url: "https://tapmilan.in/",
+
+        logo:
+          "https://tapmilan.in/favicon.png",
+
+        description:
+          "Digital business cards, smart visiting cards and NFC cards for professionals and businesses.",
+      });
+
+  }, [
+    title,
+    description,
+    path,
+    noIndex,
+  ]);
 
   return null;
 }

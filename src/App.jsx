@@ -1,16 +1,41 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
+// =========================
+// PUBLIC WEBSITE
+// =========================
+
 import Landing from "./pages/Landing";
+import DigitalBusinessCard from "./pages/DigitalBusinessCard";
+import NFCBusinessCard from "./pages/NFCBusinessCard";
+import OrderCard from "./pages/OrderCard";
+
+// =========================
+// AUTHENTICATION
+// =========================
+
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import ForgotPassword from "./pages/ForgotPassword";
+import UpdatePassword from "./pages/UpdatePassword";
+
+// =========================
+// PROFILE / CARD
+// =========================
+
 import ProfileSetup from "./pages/ProfileSetup";
 import PublicProfile from "./pages/PublicProfile";
+import ActivateCard from "./pages/ActivateCard";
+
+// =========================
+// DASHBOARD
+// =========================
+
 import Dashboard from "./pages/Dashboard";
 import EditProfile from "./pages/EditProfile";
 
-import ForgotPassword from "./pages/ForgotPassword";
-import UpdatePassword from "./pages/UpdatePassword";
-import ActivateCard from "./pages/ActivateCard";
+// =========================
+// UTILITY
+// =========================
 
 import ScrollToTop from "./components/ScrollToTop";
 
@@ -18,22 +43,73 @@ function App() {
   return (
     <BrowserRouter>
 
-      {/* Every new route starts from the top */}
+      {/* Scroll to top on every route change */}
       <ScrollToTop />
 
       <Routes>
 
-        <Route path="/" element={<Landing />} />
+        {/* =========================
+            PUBLIC WEBSITE
+        ========================== */}
 
-        <Route path="/login" element={<Login />} />
+        {/* Home */}
+        <Route
+          path="/"
+          element={<Landing />}
+        />
 
-        <Route path="/signup" element={<Signup />} />
+        {/* Digital Business Card */}
+        <Route
+          path="/digital-business-card"
+          element={<DigitalBusinessCard />}
+        />
 
-        <Route path="/forgot-password" element={<ForgotPassword />} />
+        {/* NFC Business Card */}
+        <Route
+          path="/nfc-business-card"
+          element={<NFCBusinessCard />}
+        />
 
-        <Route path="/update-password" element={<UpdatePassword />} />
+        {/* Order Physical Card */}
+        <Route
+          path="/order"
+          element={<OrderCard />}
+        />
 
-        <Route path="/profile-setup" element={<ProfileSetup />} />
+
+        {/* =========================
+            AUTHENTICATION
+        ========================== */}
+
+        <Route
+          path="/login"
+          element={<Login />}
+        />
+
+        <Route
+          path="/signup"
+          element={<Signup />}
+        />
+
+        <Route
+          path="/forgot-password"
+          element={<ForgotPassword />}
+        />
+
+        <Route
+          path="/update-password"
+          element={<UpdatePassword />}
+        />
+
+
+        {/* =========================
+            PROFILE / CARD
+        ========================== */}
+
+        <Route
+          path="/profile-setup"
+          element={<ProfileSetup />}
+        />
 
         <Route
           path="/activate/:cardCode"
@@ -45,9 +121,25 @@ function App() {
           element={<PublicProfile />}
         />
 
-        <Route path="/dashboard" element={<Dashboard />} />
 
-        <Route path="/edit-profile" element={<EditProfile />} />
+        {/* =========================
+            DASHBOARD
+        ========================== */}
+
+        <Route
+          path="/dashboard"
+          element={<Dashboard />}
+        />
+
+        <Route
+          path="/edit-profile"
+          element={<EditProfile />}
+        />
+
+
+        {/* =========================
+            404 FALLBACK
+        ========================== */}
 
         <Route
           path="*"
