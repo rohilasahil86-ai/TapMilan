@@ -163,14 +163,21 @@ function ProfileSetup() {
         .trim()
         .toLowerCase();
 
-      const usernameRegex = /^[a-z0-9._]{3,30}$/;
-
+      const usernameRegex = /^[a-z0-9](?:[a-z0-9._]{1,28}[a-z0-9])?$/;
+      
       if (!usernameRegex.test(cleanUsername)) {
         showMessage(
           "Username must be 3–30 characters and use lowercase letters, numbers, dots or underscores."
         );
         return;
       }
+
+      if (/[._]{2}/.test(cleanUsername) || /[._]{2,}/.test(cleanUsername)) {
+  showMessage(
+    "Username cannot contain consecutive dots or underscores."
+  );
+  return;
+}
 
       if (!formData.full_name.trim()) {
         showMessage("Please enter your full name.");
