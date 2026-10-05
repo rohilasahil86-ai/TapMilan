@@ -18,7 +18,7 @@ export default function OrderCard() {
   const [cardType, setCardType] = useState("nfc");
   const [quantity, setQuantity] = useState(1);
 
-  const prices = { nfc: 999, digital: 399 };
+  const prices = { nfc: 1499, digital: 699 };
   const price = prices[cardType] * quantity;
 
   return (
@@ -138,7 +138,7 @@ export default function OrderCard() {
                 <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#171717] text-[#D9B77A]"><Smartphone size={22}/></div>
                 <h3 className="mt-6 text-2xl font-semibold">NFC Business Card</h3>
                 <p className="mt-3 text-sm leading-6 text-[#6B665D]">Physical NFC card connected to your TapMilan digital profile.</p>
-                <p className="mt-6 text-2xl font-semibold">₹999</p>
+                <p className="mt-6 text-2xl font-semibold">₹1499</p>
                 <p className="mt-1 text-xs text-[#6B665D]">One-time card price</p>
               </button>
 

@@ -56,11 +56,11 @@ export default function Pricing() {
             <div className="mt-7 flex items-end gap-2">
 
               <span className="text-6xl font-semibold tracking-[-0.06em] text-[#171717]">
-                ₹999
+                ₹1499
               </span>
 
               <span className="mb-2 text-sm text-[#6B665D]">
-                Per Year
+                1st Year
               </span>
 
             </div>
