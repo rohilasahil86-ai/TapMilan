@@ -176,6 +176,16 @@ const whatsappNumber = (() => {
   return digits;
 })();
 
+
+const whatsappMessage = profile.full_name
+  ? `Hi, ${profile.full_name}`
+  : "Hi";
+
+const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+  whatsappMessage
+)}`;
+
+
 const emailComposeUrl = profile.email
   ? `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(
       profile.email
@@ -368,7 +378,7 @@ const emailComposeUrl = profile.email
 
                 {profile.whatsapp && (
                   <a
-                    href={`https://wa.me/${whatsappNumber}`}
+                    href={whatsappUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="rounded-full bg-[#171717] px-6 py-3.5 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-[#2B2B2B]"

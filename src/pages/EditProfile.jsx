@@ -82,8 +82,8 @@ useEffect(() => {
       full_name: data.full_name || "",
       business_name: data.business_name || "",
       designation: data.designation || "",
-      phone: data.phone || "",
-      whatsapp: data.whatsapp || "",
+      phone: normalizeEditablePhone(data.phone || ""),
+whatsapp: normalizeEditablePhone(data.whatsapp || ""),
       email: data.email || "",
       website: data.website || "",
       instagram: data.instagram || "",
@@ -98,6 +98,24 @@ useEffect(() => {
 
     setLoading(false);
   };
+
+
+
+  const normalizeEditablePhone = (value = "") => {
+  let digits = value.replace(/\D/g, "");
+
+  if (digits.startsWith("91") && digits.length === 12) {
+    digits = digits.slice(2);
+  }
+
+  if (digits.startsWith("0") && digits.length === 11) {
+    digits = digits.slice(1);
+  }
+
+  return digits.slice(0, 10);
+};
+
+
 
   // =========================
   // HANDLE INPUT
@@ -331,8 +349,13 @@ const handlePhotoUpload = async (e) => {
         full_name: form.full_name.trim(),
         business_name: form.business_name.trim(),
         designation: form.designation.trim(),
-        phone: form.phone.trim(),
-        whatsapp: form.whatsapp.trim(),
+        phone: form.phone.trim()
+  ? `91${form.phone.trim()}`
+  : "",
+
+whatsapp: form.whatsapp.trim()
+  ? `91${form.whatsapp.trim()}`
+  : "",
         email: form.email.trim(),
         website: form.website.trim(),
         instagram: form.instagram.trim(),
@@ -533,19 +556,69 @@ const handlePhotoUpload = async (e) => {
 
             <div className="grid gap-5 md:grid-cols-2">
 
-              <Input
-                label="Phone"
-                name="phone"
-                value={form.phone}
-                onChange={handleChange}
-              />
+              <div>
+  <label className="mb-2 block text-sm font-medium text-[#171717]">
+    Phone
+  </label>
 
-              <Input
-                label="WhatsApp"
-                name="whatsapp"
-                value={form.whatsapp}
-                onChange={handleChange}
-              />
+  <div className="flex overflow-hidden rounded-xl border border-[#E5DED1] bg-white focus-within:border-[#B08D57]">
+    <div className="flex items-center border-r border-[#E5DED1] bg-[#F5F2EA] px-4 text-sm font-medium text-[#6B665D]">
+      +91
+    </div>
+
+    <input
+      type="tel"
+      name="phone"
+      value={form.phone}
+      onChange={(e) =>
+        setForm((prev) => ({
+          ...prev,
+          phone: normalizeEditablePhone(e.target.value),
+        }))
+      }
+      inputMode="numeric"
+      maxLength={10}
+      placeholder="10-digit mobile number"
+      className="w-full px-4 py-3 text-sm outline-none"
+    />
+  </div>
+
+  <p className="mt-2 text-xs text-[#8A8378]">
+    Enter your 10-digit mobile number. +91 is fixed.
+  </p>
+</div>
+
+              <div>
+  <label className="mb-2 block text-sm font-medium text-[#171717]">
+    WhatsApp
+  </label>
+
+  <div className="flex overflow-hidden rounded-xl border border-[#E5DED1] bg-white focus-within:border-[#B08D57]">
+    <div className="flex items-center border-r border-[#E5DED1] bg-[#F5F2EA] px-4 text-sm font-medium text-[#6B665D]">
+      +91
+    </div>
+
+    <input
+      type="tel"
+      name="whatsapp"
+      value={form.whatsapp}
+      onChange={(e) =>
+        setForm((prev) => ({
+          ...prev,
+          whatsapp: normalizeEditablePhone(e.target.value),
+        }))
+      }
+      inputMode="numeric"
+      maxLength={10}
+      placeholder="10-digit mobile number"
+      className="w-full px-4 py-3 text-sm outline-none"
+    />
+  </div>
+
+  <p className="mt-2 text-xs text-[#8A8378]">
+    Enter your 10-digit WhatsApp number. +91 is fixed.
+  </p>
+</div>
 
               <Input
                 label="Email"

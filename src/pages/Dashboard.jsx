@@ -196,7 +196,7 @@ const cardActivationUrl = card?.card_code
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#171717]">
               <span className="text-sm font-semibold text-[#B08D57]">
-                SC
+                TM
               </span>
             </div>
 
@@ -231,7 +231,7 @@ const cardActivationUrl = card?.card_code
           </p>
 
           <h1 className="mt-2 text-3xl font-semibold tracking-tight text-[#171717] sm:text-4xl">
-            Your Digital Identity
+            Manage Your Card
           </h1>
 
           <p className="mt-2 max-w-2xl text-sm leading-6 text-[#6B665D] sm:text-base">
@@ -291,7 +291,14 @@ const cardActivationUrl = card?.card_code
       </p>
 
       <p className="mt-1 text-sm font-medium text-[#171717]">
-        {new Date(card.activated_at).toLocaleString()}
+        {new Intl.DateTimeFormat("en-IN", {
+  day: "numeric",
+  month: "short",
+  year: "numeric",
+  hour: "numeric",
+  minute: "2-digit",
+  hour12: true,
+}).format(new Date(card.activated_at))}
       </p>
     </div>
   )}
