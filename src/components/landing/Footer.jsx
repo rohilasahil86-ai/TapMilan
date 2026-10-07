@@ -12,7 +12,7 @@ export default function Footer() {
             TOP FOOTER
         ========================== */}
 
-        <div className="grid gap-12 border-b border-white/10 py-16 md:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr] lg:py-20">
+        <div className="grid gap-12 border-b border-white/10 py-16 md:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr_1fr] lg:py-20">
 
           {/* =========================
               BRAND
@@ -178,6 +178,84 @@ export default function Footer() {
 
           </div>
 
+
+          {/* =========================
+              CONNECT
+          ========================== */}
+
+          <div>
+
+            <p className="mb-5 text-xs font-medium uppercase tracking-[0.16em] text-[#B08D57]">
+              Connect
+            </p>
+
+            <div className="space-y-3 text-sm text-white/55">
+
+              {/* PHONE */}
+
+              <a
+                href="tel:+918607118678"
+                className="group flex items-center gap-2 transition hover:text-white"
+              >
+                <span>+91 86071 18678</span>
+
+                <span className="text-xs text-white/30 transition group-hover:translate-x-0.5 group-hover:text-[#B08D57]">
+                  ↗
+                </span>
+              </a>
+
+
+              {/* INSTAGRAM */}
+
+              <a
+                href="https://www.instagram.com/tapmilan_official/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center gap-2 transition hover:text-white"
+              >
+                <span>Instagram</span>
+
+                <span className="text-xs text-white/30 transition group-hover:translate-x-0.5 group-hover:text-[#B08D57]">
+                  ↗
+                </span>
+              </a>
+
+
+              {/* FACEBOOK */}
+
+              <a
+                href="https://www.facebook.com/profile.php?id=61594823235630"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center gap-2 transition hover:text-white"
+              >
+                <span>Facebook</span>
+
+                <span className="text-xs text-white/30 transition group-hover:translate-x-0.5 group-hover:text-[#B08D57]">
+                  ↗
+                </span>
+              </a>
+
+
+              {/* LINKEDIN */}
+
+              <a
+                href="https://www.linkedin.com/company/tapmilan/?viewAsMember=true"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center gap-2 transition hover:text-white"
+              >
+                <span>LinkedIn</span>
+
+                <span className="text-xs text-white/30 transition group-hover:translate-x-0.5 group-hover:text-[#B08D57]">
+                  ↗
+                </span>
+              </a>
+
+            </div>
+
+          </div>
+
         </div>
 
 
@@ -187,11 +265,16 @@ export default function Footer() {
 
         <div className="flex flex-col gap-5 py-7 sm:flex-row sm:items-center sm:justify-between">
 
+          {/* COPYRIGHT */}
+
           <p className="text-xs text-white/35">
             © {currentYear} TapMilan. All rights reserved.
           </p>
 
-          <div className="flex items-center gap-5">
+
+          {/* BOTTOM LINKS */}
+
+          <div className="flex flex-wrap items-center gap-5">
 
             <Link
               to="/"
@@ -199,6 +282,37 @@ export default function Footer() {
             >
               Digital Identity
             </Link>
+
+            <span className="h-1 w-1 rounded-full bg-white/20" />
+
+            <a
+              href="tel:+918607118678"
+              className="text-xs text-white/35 transition hover:text-white/70"
+            >
+              +91 86071 18678
+            </a>
+
+            <span className="h-1 w-1 rounded-full bg-white/20" />
+
+            <a
+              href="https://www.instagram.com/tapmilan_official/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs text-white/35 transition hover:text-white/70"
+            >
+              Instagram
+            </a>
+
+            <span className="h-1 w-1 rounded-full bg-white/20" />
+
+            <a
+              href="https://www.linkedin.com/company/tapmilan/?viewAsMember=true"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs text-white/35 transition hover:text-white/70"
+            >
+              LinkedIn
+            </a>
 
             <span className="h-1 w-1 rounded-full bg-white/20" />
 
