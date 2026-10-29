@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "../lib/supabase";
 import { QRCodeCanvas } from "qrcode.react";
 import SEO from "../components/SEO";
+import ShowcaseManager from "../components/ShowcaseManager";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -28,9 +29,10 @@ function Dashboard() {
     } = await supabase.auth.getUser();
 
     if (userError || !user) {
-  navigate("/login", { replace: true });
-  return;
-}
+      setLoading(false);
+      navigate("/login", { replace: true });
+      return;
+    }
 
     const { data, error } = await supabase
       .from("profiles")
@@ -47,9 +49,6 @@ function Dashboard() {
 
     setProfile(data);
 
-    console.log("CURRENT USER:", user.id);
-console.log("PROFILE ID:", data.id);
-
 const {
       data: cardData,
       error: cardError,
@@ -60,9 +59,6 @@ const {
       .order("created_at", { ascending: false })
       .limit(1)
       .maybeSingle();
-
-  console.log("CARD DATA:", cardData);
-console.log("CARD ERROR:", cardError);
 
 if (cardError) {
   console.error("CARD ERROR:", cardError);
@@ -84,10 +80,6 @@ setLoading(false);
 
     return `${window.location.origin}/u/${profile.username}`;
   };
-
-  const publicProfileUrl = profile?.username
-  ? `${window.location.origin}/u/${profile.username}`
-  : "";
 
 const cardActivationUrl = card?.card_code
   ? `${window.location.origin}/activate/${card.card_code}`
@@ -501,6 +493,9 @@ const cardActivationUrl = card?.card_code
           </section>
 
         </div>
+
+         {/* BUSINESS SHOWCASE */}
+        <ShowcaseManager />
 
       </main>
       
